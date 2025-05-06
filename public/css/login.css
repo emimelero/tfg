@@ -12,6 +12,7 @@ body{
     height: 78vh;
     margin: auto;
     display: grid;
+    background-color: rgba(255, 255, 255, 0.5);
     grid-template-columns: 1fr 1fr;
     border: 3px solid #a470d2;
     box-shadow: 0 0 50px 0 #c7a3e6;
