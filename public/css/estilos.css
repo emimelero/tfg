@@ -1,0 +1,47 @@
+body{
+    background-color: #0000003b;
+}
+.cajas{
+    background-color: #a470d2;
+    color: rgb(0, 0, 0);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: cursive;
+}
+
+.footer-main{
+    bottom: 0;
+}
+.color{
+    background-color: #a470d2;
+}
+
+.title-main{
+    font-family: sport-font;
+    text-align: center;
+    font-size: large;
+}
+
+.botones{
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+}
+
+.deportes{
+    font-size: 1.4em;
+    font-family: sport-font;
+}
+
+
+@font-face {
+    font-family: sport-font;
+    src: url("sport.ttf");
+}
+
+
+                                         
+            
