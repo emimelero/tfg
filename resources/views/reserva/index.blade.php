@@ -1,10 +1,31 @@
 @extends('plantilla')
 
-@section('content')
+    @section('content')
+            @if (!auth()->user())
+                <div class="d-flex align-items-center border border-warning rounded p-3 advertencia" style="max-width: 600px; margin: auto;">
+                    <!-- Imagen de advertencia -->
+                    <div class="me-3">
+                        <img src="{{asset('images/warning.png')}}" alt="Advertencia" width="50" height="50">
+                    </div>
+                    <div>
+                        <p class="mb-0 text-black fw-bold">
+                            Debes identificarte en la aplicación para poder realizar reservas.
+                        </p>
+                    </div>
+                </div>
+            @endif
 
         <h1 class="title-main">Pistas Disponibles</h1>
         <div class="container mt-5 caja-general">
-            @include('partials.nav')
+            @if (auth()->user())
+                <a href="{{ route('socio.create')}}" class="btn btn-success btn-sm my-2">
+                    <i class="bi bi-plus-circle">Hazte socio</i> 
+                </a>
+            @endif
+            @if (auth()->user())
+                @include('partials.nav')
+            @endif
+            
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 @foreach($pistas as $pista)
                     <div class="col">
@@ -12,11 +33,11 @@
                             <img src="{{ $pista->imagen }}" class="card-img-top" alt="Imagen de {{ $pista->nombre }}" style="height: 200px; object-fit: cover;">
                             <div class="card-body cajas">
                                 <h4 class="card-title text-center deportes">{{ $pista->nombre }}</h4>
-                                <a href="{{ route('sportifysolutions.create') }}" class="btn btn-primary botones">Reservar</a>
-                                {{-- @if ((auth()->user()))
-                                    meter el enlace de las reservas
-                                @endif --}}
-                                
+                                @if (auth()->user())
+                                    <a href="{{ route('reserva.create') }}" class="btn btn-primary botones">Reservar</a>
+                                @else
+                                    <a href="{{ route('login') }}" class="btn btn-primary botones">Reservar</a>
+                                @endif                        
                             </div>
                         </div>
                     </div>

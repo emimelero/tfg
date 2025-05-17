@@ -22,7 +22,6 @@ body{
 .title-main{
     font-family: sport-font;
     text-align: center;
-    font-size: large;
 }
 
 .botones{
@@ -35,6 +34,14 @@ body{
     font-size: 1.4em;
     font-family: sport-font;
 }
+
+.logo{
+    width: 4%;
+}
+.advertencia{
+    background-color: #f6fc8b98;
+}
+
 
 
 @font-face {

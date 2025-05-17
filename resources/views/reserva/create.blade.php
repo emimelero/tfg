@@ -2,25 +2,35 @@
 
 @section('content')
 
-        <h1 class="title-main">Reserva de </h1>
-        <div class="container mt-5 caja-general">
-            @include('partials.nav')
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                @foreach($pistas as $pista)
-                    <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <img src="{{ $pista->imagen }}" class="card-img-top" alt="Imagen de {{ $pista->nombre }}" style="height: 200px; object-fit: cover;">
-                            <div class="card-body cajas">
-                                <h4 class="card-title text-center deportes">{{ $pista->nombre }}</h4>
-                                <a href="{{ route('sportifysolutions.create') }}" class="btn btn-primary botones">Reservar</a>
-                                {{-- @if ((auth()->user()))
-                                    meter el enlace de las reservas
-                                @endif --}}
-                                
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+    <div class="container">
+        <h2>Reservar una pista</h2>
+
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
+        <form action="{{ route('reserva.store') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label for="pista_id" class="form-label">Pista</label>
+                <select name="pista_id" class="form-control" required>
+                    @foreach($pistas as $pista)
+                        <option value="{{ $pista->id }}">{{ $pista->nombre }}</option>
+                    @endforeach
+                </select>
             </div>
-        </div>
-    @endsection
+
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input type="date" name="fecha" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="hora" class="form-label">Hora</label>
+                <input type="time" name="hora" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Reservar</button>
+        </form>
+    </div>
+@endsection

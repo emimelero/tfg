@@ -13,6 +13,7 @@
     <nav class="color bg-gradient-800 text-white py-4">
         <div class="container mx-auto flex justify-between items-center px-4">
             <a class="text-xl font-bold" href="{{ route('sportifysolutions.index') }}">Sportify Solutions</a>
+            <img class="logo" src="{{ asset('images/logo.png')}}" alt="Logo de la aplicacion">
             <ul class="flex items-center">
                 @if(auth()->check())
                     <li>
@@ -21,10 +22,11 @@
                             <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar Sesión</button>
                         </form>
                     </li>
+                    
                 @else
                     <li>
-                        <a href="{{ route('signup') }}" class="bg bg-warning 500 hover:bg-blue-600 text-black px-4 py-2 rounded">Sign up</a>
-                        <a href="{{ route('login') }}" class="bg bg-warning 500 hover:bg-blue-600 text-black px-4 py-2 rounded">Log in</a>
+                        <a href="{{ route('signup') }}" class="bg bg-secondary 500 text-white px-4 py-2 rounded">Sign up</a>
+                        <a href="{{ route('login') }}" class="bg bg-secondary 500 text-white px-4 py-2 rounded">Log in</a>
                     </li>
                 @endif
             </ul>

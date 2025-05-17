@@ -21,4 +21,9 @@ class User extends Authenticatable
         'password',
 
     ];
+
+    public function socio()
+    {
+        return $this->hasOne(Socio::class);
+    }
 }

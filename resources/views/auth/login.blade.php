@@ -20,7 +20,7 @@
             <i class="fa-solid fa-lock"></i>
         </div>
         <input type="submit" class="submit" value="Iniciar Sesión">
-        <p class="footer">¿No tienes cuenta?  <a href="{{ route('signup')}}" class="link">Por favor, Registrate</a></p>   
+        <p class="footer">¿No tienes usuario? <a href="{{ route('signup')}}" class="link">Por favor, Registrate</a></p>   
     </form>
     <div></div>
     <div class="banner">

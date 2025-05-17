@@ -16,10 +16,9 @@ return new class extends Migration
             $table->date('fecha');
             $table->time('hora');
             $table->unsignedBigInteger('pista_id');
-            $table->unsignedBigInteger('usuario_id'); // Referencia al id del usuario
+            $table->unsignedBigInteger('usuario_id');
             $table->foreign('pista_id')->references('id')->on('pistas')->onDelete('cascade');
             $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
-            // Clave primaria compuesta simulada como índice único
             $table->unique(['fecha', 'hora', 'pista_id'], 'reserva_unica');
             $table->timestamps();
         });
