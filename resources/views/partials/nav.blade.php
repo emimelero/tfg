@@ -1,8 +1,5 @@
-<nav>
-    <a href="{{ route('sportifysolutions.index') }}">Inicio</a>
-    &nbsp;&nbsp;|
-    <a href="#">Mis reservas</a>
-    &nbsp;&nbsp;|
-    <a href="#">Mi perfil</a>
-    &nbsp;&nbsp;
+<nav class="menu_opciones">
+    <a href="{{ route('sportifysolutions.index') }}">Inicio</a> |
+    <a href="#">Mis reservas</a> |
+    <a href="#">Mi perfil</a> |
 </nav>

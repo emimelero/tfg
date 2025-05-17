@@ -3,7 +3,6 @@
     @section('content')
             @if (!auth()->user())
                 <div class="d-flex align-items-center border border-warning rounded p-3 advertencia" style="max-width: 600px; margin: auto;">
-                    <!-- Imagen de advertencia -->
                     <div class="me-3">
                         <img src="{{asset('images/warning.png')}}" alt="Advertencia" width="50" height="50">
                     </div>
@@ -33,11 +32,27 @@
                             <img src="{{ $pista->imagen }}" class="card-img-top" alt="Imagen de {{ $pista->nombre }}" style="height: 200px; object-fit: cover;">
                             <div class="card-body cajas">
                                 <h4 class="card-title text-center deportes">{{ $pista->nombre }}</h4>
-                                @if (auth()->user())
-                                    <a href="{{ route('reserva.create') }}" class="btn btn-primary botones">Reservar</a>
-                                @else
-                                    <a href="{{ route('login') }}" class="btn btn-primary botones">Reservar</a>
-                                @endif                        
+                                <div class="d-flex justify-content-between align-items-center position-relative p-3 rounded">
+                                    @if (auth()->user())
+                                        <a href="{{ route('reserva.create') }}" class="btn btn-primary botones">Reservar</a>
+                                        @else
+                                        <div class="mx-auto">
+                                            <a href="{{ route('login')}}" class="btn btn-primary px-4">Reservar</a>
+                                        </div>
+                                        @endif                        
+                                        @if(auth()->user() && auth()->user()->usuario == 'admin')
+                                            <div class="position-absolute end-0 me-3 d-flex flex-column gap-1">
+                                                <a href="{{ route('sportifysolutions.edit', $pista->id)}}" class="btn btn-warning btn-sm boton-mini">
+                                                    <img class="foto-boton" src="{{ asset('images/edit.png') }}" alt="Editar">
+                                                </a>
+                                                <form action="{{ route('sportifysolutions.destroy', $pista->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar esta pista?')"><img class="foto-boton" src="{{ asset('images/delete.png')}}" alt=""></button>
+                                                </form>
+                                            </div>
+                                        @endif
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -20,8 +20,28 @@ body{
 }
 
 .title-main{
+    margin-top: 10px;
+    font-size: 30px;
     font-family: sport-font;
     text-align: center;
+}
+
+.foto-boton {
+    width: 20px;
+    height: 20px;
+}
+
+.foto-boton-off {
+    width: 35px;
+    height: 35px;
+}
+.boton-mini {
+    padding: 6px;
+    width: auto;
+    height: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .botones{
@@ -42,7 +62,12 @@ body{
     background-color: #f6fc8b98;
 }
 
-
+.menu_opciones {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 20px;
+}
 
 @font-face {
     font-family: sport-font;
