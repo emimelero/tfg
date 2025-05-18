@@ -54,6 +54,10 @@ body{
     font-size: 1.4em;
     font-family: sport-font;
 }
+.foto-perfil{
+    height: 200px;
+    width: 200px;
+}
 
 .logo{
     width: 4%;

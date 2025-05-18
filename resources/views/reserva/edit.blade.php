@@ -9,27 +9,34 @@
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
 
-        <form action="{{ route('reserva.store') }}" id="form" method="POST">
+        <form action="{{ route('reserva.update', $reserva->id) }}" id="form" method="POST">
             @csrf
+            @method('PUT')
+
             <div class="mb-3">
                 <label for="pista_id" class="form-label">Pista</label>
-                <input type="text" name="pista_id" id="pista_id" value="{{ $pista->nombre}}" class="form-control" readonly required>
-                <input type="hidden" name="pista_id" value="{{ $pista->id }}">
-                {{-- <select name="pista_id" class="form-control" required readonly>
-                    <option value="{{ $pista->id }}" selected>{{ $pista->nombre }}</option>
-                </select> --}}
+                <select name="pista_id" id="pista_id" class="form-control" required>
+                    @foreach($pistas as $pista)
+                        <option value="{{ $pista->id }}" {{ $reserva->pista_id == $pista->id ? 'selected' : '' }}>
+                            {{ $pista->nombre }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
+
             <div class="mb-3">
                 <label for="fecha" class="form-label">Fecha</label>
-                <input type="date" name="fecha" id="fecha" class="form-control" required>
+                <input type="date" name="fecha" id="fecha" class="form-control" required
+                    value="{{ $reserva->fecha }}">
             </div>
 
             <div class="mb-3">
                 <label for="hora" class="form-label">Hora</label>
-                <input type="time" name="hora" id="hora" class="form-control" required>
+                <input type="time" name="hora" id="hora" class="form-control" required
+                    value="{{ $reserva->hora }}">
             </div>
 
-            <button type="submit" class="btn btn-primary">Reservar</button>
+            <button type="submit" class="btn btn-primary">Actualizar Reserva</button>
         </form>
     </div>
 
@@ -45,18 +52,17 @@
         const fechaActualStr = `${anio}-${mes}-${dia}`;
 
         const horaActualStr = hoy.toTimeString().slice(0, 5); // HH:MM
-        hora.value = horaActualStr;
+        // hora.value = horaActualStr;
         const horaMinima = "07:00";
         const horaMaxima = "22:00";
 
         // Establece valor y mínimo para fecha
-        fechaInput.value = fechaActualStr;
+        // fechaInput.value = fechaActualStr;
         fechaInput.setAttribute('min', fechaActualStr);
 
         // Establece atributos min y max para hora
         horaInput.setAttribute('min', horaMinima);
         horaInput.setAttribute('max', horaMaxima);
-
 
         // Validación al enviar el formulario
         const formulario = fechaInput.closest('form');
@@ -78,14 +84,14 @@
                 return;
             }
 
-        //    if (fechaSeleccionada === fechaActualStr && horaSeleccionada < horaActualStr) {
-        //         e.preventDefault();
-        //         horaInput.setCustomValidity('La hora no puede ser anterior a la actual.');
-        //         horaInput.reportValidity();
-        //         return;
-        //     } else {
-        //         horaInput.setCustomValidity('');
-        //     }
+            if (fechaSeleccionada === fechaActualStr && horaSeleccionada < horaActualStr) {
+                e.preventDefault();
+                horaInput.setCustomValidity('La hora no puede ser anterior a la actual.');
+                horaInput.reportValidity();
+                return;
+            } else {
+                horaInput.setCustomValidity('');
+            }
         });
     };
 </script>

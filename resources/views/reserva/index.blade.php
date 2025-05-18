@@ -41,7 +41,7 @@
                                 <h4 class="card-title text-center deportes">{{ $pista->nombre }}</h4>
                                 <div class="d-flex justify-content-between align-items-center position-relative p-3 rounded">
                                     @if (auth()->user())
-                                        <a href="{{ route('reserva.create') }}" class="btn btn-primary botones">Reservar</a>
+                                        <a href="{{ route('reserva.create', ['pista' => $pista->id]) }}" class="btn btn-primary botones">Reservar</a>
                                         @else
                                         <div class="mx-auto">
                                             <a href="{{ route('login')}}" class="btn btn-primary px-4">Reservar</a>

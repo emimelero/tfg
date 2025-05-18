@@ -12,8 +12,12 @@ Route::get('/', function () {
 
 Route::resource('sportifysolutions', PistaController::class);
 Route::middleware(['auth'])->group(function () {
-    Route::get('/reservas/crear', [ReservaController::class, 'create'])->name('reserva.create');
+    Route::get('/reservas/crear/{pista}', [ReservaController::class, 'create'])->name('reserva.create');
     Route::post('/reservas', [ReservaController::class, 'store'])->name('reserva.store');
+    Route::get('/reservas/mis-reservas', [ReservaController::class, 'misReservas'])->name('reserva.show');
+    Route::get('/reservas/{id}/editar', [ReservaController::class, 'edit'])->name('reserva.edit');
+    Route::put('/reservas/{id}', [ReservaController::class, 'update'])->name('reserva.update');
+    Route::delete('/reservas/{id}', [ReservaController::class, 'destroy'])->name('reserva.destroy');
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/socio/crear', [SocioController::class, 'create'])->name('socio.create');

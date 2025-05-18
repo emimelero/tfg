@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Pista;
 use App\Models\Reserva;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ReservaController extends Controller
 {
-    public function create()
+    public function create($pistaId)
     {
-        $pistas = Pista::all();
-        return view('reserva.create', compact('pistas'));
+        $pista = Pista::findOrFail($pistaId);
+        return view('reserva.create', compact('pista'));
     }
 
     public function store(Request $request)
@@ -22,13 +23,28 @@ class ReservaController extends Controller
             'pista_id' => 'required|exists:pistas,id',
         ]);
 
+        $horaReserva = Carbon::createFromFormat('H:i', $request->hora);
+        $horaInferior = $horaReserva->copy()->subMinutes(29)->format('H:i');
+        $horaSuperior = $horaReserva->copy()->addMinutes(29)->format('H:i');
+
+        // Validar que no haya otra reserva en esa pista en ese rango
         $yaExiste = Reserva::where('fecha', $request->fecha)
-            ->where('hora', $request->hora)
             ->where('pista_id', $request->pista_id)
+            ->whereBetween('hora', [$horaInferior, $horaSuperior])
             ->exists();
 
         if ($yaExiste) {
-            return back()->with('error', 'Esa pista ya está reservada en ese horario.');
+            return back()->with('error', 'Debe haber al menos 30 minutos de separación entre reservas en esta pista.');
+        }
+
+        // Validar que el usuario no tenga otra reserva en ese rango en cualquier pista
+        $conflictoUsuario = Reserva::where('fecha', $request->fecha)
+            ->where('usuario_id', auth()->id())
+            ->whereBetween('hora', [$horaInferior, $horaSuperior])
+            ->exists();
+
+        if ($conflictoUsuario) {
+            return back()->with('error', 'No puedes tener dos reservas activas en diferentes pistas dentro de un margen de 30 minutos.');
         }
 
         Reserva::create([
@@ -38,6 +54,93 @@ class ReservaController extends Controller
             'usuario_id' => auth()->id(),
         ]);
 
-        return redirect()->route('reserva.create')->with('success', 'Reserva realizada con éxito.');
+        return redirect()->route('sportifysolutions.index')->with('success', 'Reserva realizada con éxito.');
     }
+    public function edit($id)
+    {
+        $reserva = Reserva::findOrFail($id);
+        if ($reserva->usuario_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $pistas = Pista::all();
+
+        return view('reserva.edit', compact('reserva', 'pistas'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $reserva = Reserva::findOrFail($id);
+
+        if ($reserva->usuario_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'fecha' => 'required|date',
+            'hora' => 'required',
+            'pista_id' => 'required|exists:pistas,id',
+        ]);
+
+        $horaReserva = Carbon::createFromFormat('H:i', $request->hora);
+        $horaInferior = $horaReserva->copy()->subMinutes(30)->format('H:i');
+        $horaSuperior = $horaReserva->copy()->addMinutes(30)->format('H:i');
+
+        // Validar solapamiento en la pista (excluyendo la propia reserva)
+        $yaExiste = Reserva::where('fecha', $request->fecha)
+            ->where('pista_id', $request->pista_id)
+            ->whereBetween('hora', [$horaInferior, $horaSuperior])
+            ->where('id', '!=', $reserva->id)
+            ->exists();
+
+        if ($yaExiste) {
+            return back()->with('error', 'Debe haber al menos 30 minutos de separación entre reservas en esta pista.');
+        }
+
+        // Validar que el usuario no tenga otra reserva en ese rango en otra pista
+        $conflictoUsuario = Reserva::where('fecha', $request->fecha)
+            ->where('usuario_id', auth()->id())
+            ->whereBetween('hora', [$horaInferior, $horaSuperior])
+            ->where('id', '!=', $reserva->id)
+            ->exists();
+
+        if ($conflictoUsuario) {
+            return back()->with('error', 'No puedes tener dos reservas activas en diferentes pistas dentro de un margen de 30 minutos.');
+        }
+
+        // Actualizar reserva
+        $reserva->update([
+            'fecha' => $request->fecha,
+            'hora' => $request->hora,
+            'pista_id' => $request->pista_id,
+        ]);
+
+        return redirect()->route('reserva.show')->with('success', 'Reserva actualizada con éxito.');
+    }
+
+    public function destroy($id)
+    {
+        $reserva = Reserva::findOrFail($id);
+
+        if ($reserva->usuario_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $reserva->delete();
+
+        return redirect()->route('reserva.show')->with('success', 'Reserva eliminada correctamente.');
+    }
+    public function misReservas()
+    {
+        $usuario = auth()->user();
+
+        $reservas = Reserva::with('pista') // Relación opcional si quieres info de la pista
+            ->where('usuario_id', $usuario->id)
+            ->orderBy('fecha', 'asc')
+            ->orderBy('hora', 'asc')
+            ->get();
+
+        return view('reserva.show', compact('reservas'));
+    }
+
 }
