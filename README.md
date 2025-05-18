@@ -3,7 +3,7 @@
 ### Emilio Melero 2º CFSW
 
 #### Base de datos del trabajo
-![Vista de la app](images/imagenes_demo/bbdd.png)
+![Vista de la app](public/images/imagenes_demo/bbdd.png)
 #### Pagina principal de la aplicacion
 ![alt text](image.png)
 #### Pagina principal de log in 
