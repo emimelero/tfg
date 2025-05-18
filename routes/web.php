@@ -17,7 +17,10 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/socio/crear', [SocioController::class, 'create'])->name('socio.create');
+    Route::get('/socio', [SocioController::class, 'show'])->name('socio.show');
     Route::post('/socio', [SocioController::class, 'store'])->name('socio.store');
+    Route::get('/socio/editar', [SocioController::class, 'edit'])->name('socio.edit');
+    Route::put('/socio', [SocioController::class, 'update'])->name('socio.update');
 });
 Route::get('login', [LoginController::class, 'loginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);

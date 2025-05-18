@@ -16,13 +16,20 @@
 
         <h1 class="title-main">Pistas Disponibles</h1>
         <div class="container mt-5 caja-general">
-            @if (auth()->user())
+
+            @if (auth()->user() && !auth()->user()->socio)
                 <a href="{{ route('socio.create')}}" class="btn btn-success btn-sm my-2">
                     <i class="bi bi-plus-circle">Hazte socio</i> 
                 </a>
             @endif
+            @if (auth()->user() && auth()->user()->usuario == 'admin')
+                <br>
+                <a href="{{ route('sportifysolutions.create') }}" class="btn btn-success btn-sm my-2">
+                    <i class="bi bi-plus-circle"><img class="foto-boton" src="{{asset('images/add.png')}}" alt="">Añadir pista</i> 
+                </a>
+            @endif
             @if (auth()->user())
-                @include('partials.nav')
+                @include('partials.nav', ['socio' => auth()->user()->socio])
             @endif
             
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">

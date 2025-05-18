@@ -25,6 +25,11 @@ class PistaController extends Controller
         $pistas = Pista::findOrFail($id);
         return view('admin.edit', compact('pistas'));
     }
+    public function store(Request $request)
+    {
+        Pista::create($request->all());
+        return redirect()->route('sportifysolutions.index');
+    }
     public function update(Request $request, string $id)
     {
         $pista = Pista::findOrFail($id);
