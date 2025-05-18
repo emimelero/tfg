@@ -1,6 +1,7 @@
 @extends('plantilla')
 @section('content')
     <div class="container mt-5">
+        @include('partials.nav', ['socio' => auth()->user()->socio])
         <div class="card">
             <div class="card-header color text-white">
                 <h1>Mi Perfil de socio</h1>

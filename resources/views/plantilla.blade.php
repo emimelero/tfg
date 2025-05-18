@@ -42,5 +42,8 @@
 
     <footer class="color bg-gradient-800 text-white text-center py-4 mt-6 footer-main">
         <p class="mb-0">Sportify Solutions</p>
+        <a href="#">Sobre Nosotros</a> |
+        <a href="#">Aviso Legal</a> |
+        <a href="#">Politica de cookies</a> 
     </footer>
 

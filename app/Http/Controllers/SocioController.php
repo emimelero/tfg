@@ -11,6 +11,12 @@ class SocioController extends Controller
     {
         return view('socios.create');
     }
+    public function index()
+    {
+        $socios = Socio::with('user')->get(); // o ->with('usuario') si tu modelo es 'Usuario'
+
+        return view('socios.index', compact('socios'));
+    }
     
     public function store(Request $request)
     {
@@ -59,20 +65,6 @@ class SocioController extends Controller
         return view('socios.edit', compact('socio'));
     }
 
-    // public function update(Request $request, string $id)
-    // {
-    //     $socio = Socio::findOrFail($id);
-
-    //     $socio->titulo = $request['titulo'];
-    //     $socio->editorial = $request['editorial'];
-    //     $socio->precio = $request['precio'];
-    //     $socio->precio = $request['precio'];
-
-    //     $socio->save();
-
-    //     return redirect()->route('sportifysolutions.index')->with('success', 'Libro actualizado con éxito.');
-    // }
-
     public function update(Request $request)
     {
         $socio = auth()->user()->socio;
@@ -95,6 +87,19 @@ class SocioController extends Controller
         $socio->save();
 
         return redirect()->route('socio.show')->with('success', 'Datos actualizados correctamente.');
+    }
+
+    public function destroy($id)
+    {
+        $socio = Socio::findOrFail($id);
+
+        //  if (auth()->user()->cannot('delete', $socio)) {
+        //      abort(403);
+        //  }
+
+        $socio->delete();
+
+        return redirect()->route('socio.index')->with('success', 'Socio eliminado correctamente.');
     }
 }
 

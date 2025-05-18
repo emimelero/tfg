@@ -78,14 +78,18 @@
                 return;
             }
 
-        //    if (fechaSeleccionada === fechaActualStr && horaSeleccionada < horaActualStr) {
-        //         e.preventDefault();
-        //         horaInput.setCustomValidity('La hora no puede ser anterior a la actual.');
-        //         horaInput.reportValidity();
-        //         return;
-        //     } else {
-        //         horaInput.setCustomValidity('');
-        //     }
+            if (fechaSeleccionada === fechaActualStr && horaSeleccionada < horaActualStr) {
+                 e.preventDefault();
+                 horaInput.setCustomValidity('La hora no puede ser anterior a la actual.');
+                 horaInput.reportValidity();
+                 return;
+             } else {
+                 horaInput.setCustomValidity('');
+             }
+
+            if(fechaSeleccionada > fechaActualStr && horaSeleccionada < horaActualStr){
+                formulario.submit()
+             }
         });
     };
 </script>

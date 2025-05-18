@@ -1,15 +1,16 @@
 @extends('plantilla')
+
 @section('content')
 <div class="container">
-    <h2>Mis reservas</h2>
+    <h2>Todas las reservas</h2>
 
     @if($reservas->isEmpty())
-        <p>No tienes reservas registradas.</p>
+        <p>No hay reservas registradas.</p>
     @else
-        @include('partials.nav', ['socio' => auth()->user()->socio])
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Usuario</th>
                     <th>Pista</th>
                     <th>Fecha</th>
                     <th>Hora</th>
@@ -19,6 +20,7 @@
             <tbody>
                 @foreach($reservas as $reserva)
                     <tr>
+                        <td>{{ $reserva->usuario->usuario ?? 'Usuario eliminado' }}</td>
                         <td>{{ $reserva->pista->nombre ?? 'Pista eliminada' }}</td>
                         <td>{{ \Carbon\Carbon::parse($reserva->fecha)->format('d/m/Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($reserva->hora)->format('H:i') }}</td>
