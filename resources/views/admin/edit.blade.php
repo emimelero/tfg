@@ -12,7 +12,7 @@
 
             <div class="col-12">
                 <label for="foto" class="form-label">Imágen:</label>
-                <input type="text" id="imagen" name="imagen" class="form-control" value="{{$pistas->imagen}}">
+                <input type="file" id="imagen" name="imagen" class="form-control" value="{{$pistas->imagen}}">
             </div>
 
             <br>

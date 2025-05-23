@@ -1,8 +1,8 @@
 body{
-    background-color: #0000003b;
+    background-color: #f0f0f0ad;
 }
 .cajas{
-    background-color: #a470d2;
+    background-color: #d4adf6;
     color: rgb(0, 0, 0);
 }
 
@@ -16,7 +16,7 @@ body{
     bottom: 0;
 }
 .color{
-    background-color: #a470d2;
+    background-color: #d4adf6;
 }
 
 .title-main{
@@ -60,10 +60,7 @@ body{
 }
 
 .logo{
-    width: 4%;
-}
-.advertencia{
-    background-color: #f6fc8b98;
+    width: 7%;
 }
 
 .menu_opciones {
@@ -71,6 +68,36 @@ body{
     justify-content: center;
     gap: 1rem;
     margin-top: 20px;
+}
+
+body {
+        margin: 0;
+        padding: 0;
+    }
+
+.banner-container {
+    position: relative;
+    width: 99.2vw;
+    margin: 0;
+    height: 350px;
+    margin-top: 10px;
+    background-image: url(../images/banner.jpg);
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.banner-text{
+    color: white;
+    text-align: center;
+    margin-top: 135px;
+    font-size: 40px;
+    
+}
+
+.banner_content a{
+    position: relative;
+    left: 47%;
+    top: 45px;
 }
 
 @font-face {

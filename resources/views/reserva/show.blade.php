@@ -23,7 +23,7 @@
                         <td>{{ \Carbon\Carbon::parse($reserva->fecha)->format('d/m/Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($reserva->hora)->format('H:i') }}</td>
                         <td>
-                            <form action="{{ route('reserva.destroy', $reserva->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar esta reserva?')"><img class="foto-boton" src="{{ asset('images/delete.png')}}" ></button>

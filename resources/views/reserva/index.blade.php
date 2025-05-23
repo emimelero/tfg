@@ -1,18 +1,18 @@
 @extends('plantilla')
 
     @section('content')
-            @if (!auth()->user())
-                <div class="d-flex align-items-center border border-warning rounded p-3 advertencia" style="max-width: 600px; margin: auto;">
-                    <div class="me-3">
-                        <img src="{{asset('images/warning.png')}}" alt="Advertencia" width="50" height="50">
-                    </div>
-                    <div>
-                        <p class="mb-0 text-black fw-bold">
-                            Debes identificarte en la aplicación para poder realizar reservas.
-                        </p>
-                    </div>
+            
+        @if (!auth()->user())
+            
+            <div class="banner-container">
+                <div class="banner_content">
+                    
+                    <h2 class="banner-text"><b>¡Unete ahora y empieza a reservar pistas para practicar tus deportes favoritos!</b></h2>
+                    <a href="{{ route('login') }}" class="color 500 text-black px-8 py-4 rounded">Entrar</a>
+
                 </div>
-            @endif
+            </div>
+        @endif
 
         <h1 class="title-main">Pistas Disponibles</h1>
         <div class="container mt-5 caja-general">
@@ -24,7 +24,7 @@
             @endif
             @if (auth()->user() && auth()->user()->usuario == 'admin')
                 <br>
-                <a href="{{ route('sportifysolutions.create') }}" class="btn btn-success btn-sm my-2">
+                <a href="{{ route('sportifysolutions.create') }}" class="btn btn-success btn-sm my-2 text-black">
                     <i class="bi bi-plus-circle"><img class="foto-boton" src="{{asset('images/add.png')}}" alt="">Añadir pista</i> 
                 </a>
             @endif
@@ -49,13 +49,11 @@
                                         @endif                        
                                         @if(auth()->user() && auth()->user()->usuario == 'admin')
                                             <div class="position-absolute end-0 me-3 d-flex flex-column gap-1">
-                                                <a href="{{ route('sportifysolutions.edit', $pista->id)}}" class="btn btn-warning btn-sm boton-mini">
-                                                    <img class="foto-boton" src="{{ asset('images/edit.png') }}" alt="Editar">
-                                                </a>
+                                                <a href="{{ route('sportifysolutions.edit', $pista->id)}}" class="btn btn-warning btn-sm boton-mini">Editar</a>
                                                 <form action="{{ route('sportifysolutions.destroy', $pista->id) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar esta pista?')"><img class="foto-boton" src="{{ asset('images/delete.png')}}" alt=""></button>
+                                                    <button type="submit" class="btn btn-danger btn-sm text-black" onclick="return confirm('¿Estás seguro de que quieres eliminar esta pista?')">Eliminar</button>
                                                 </form>
                                             </div>
                                         @endif

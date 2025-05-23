@@ -73,7 +73,7 @@ class ReservaController extends Controller
 
         $reserva->delete();
 
-        return redirect()->route('reserva.index')->with('success', 'Reserva eliminada correctamente.');
+        return redirect()->route('reserva.show')->with('success', 'Reserva eliminada correctamente.');
     }
     public function misReservas()
     {

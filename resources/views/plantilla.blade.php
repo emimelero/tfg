@@ -11,10 +11,12 @@
 </head>
 <body>
     
-    <nav class="color bg-gradient-800 text-white py-4">
+    <nav class="color bg-gradient-800 text-black py-4">
         <div class="container mx-auto flex justify-between items-center px-4">
-            <a class="text-xl font-bold" href="{{ route('sportifysolutions.index') }}">Sportify Solutions</a>
-            <img class="logo" src="{{ asset('images/logo.png')}}" alt="Logo de la aplicacion">
+            <div class="d-flex align-items-center gap-2">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" style="height: 80px;">
+                <a class="text-xl font-bold" href="{{ route('sportifysolutions.index') }}">Sportify Solutions</a>
+            </div>
             <ul class="flex items-center">
                 @if(auth()->check())
                    <li>
@@ -36,11 +38,12 @@
             </ul>
         </div>
     </nav>
-    <div class="container mx-auto mt-6 px-4">
+ 
+    <div class=" mt-6">
         @yield('content')
     </div>
 
-    <footer class="color bg-gradient-800 text-white text-center py-4 mt-6 footer-main">
+    <footer class="color bg-gradient-800 text-black text-center py-4 mt-6 footer-main">
         <p class="mb-0">Sportify Solutions</p>
         <a href="#">Sobre Nosotros</a> |
         <a href="#">Aviso Legal</a> |

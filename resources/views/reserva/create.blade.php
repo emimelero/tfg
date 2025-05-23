@@ -15,9 +15,6 @@
                 <label for="pista_id" class="form-label">Pista</label>
                 <input type="text" name="pista_id" id="pista_id" value="{{ $pista->nombre}}" class="form-control" readonly required>
                 <input type="hidden" name="pista_id" value="{{ $pista->id }}">
-                {{-- <select name="pista_id" class="form-control" required readonly>
-                    <option value="{{ $pista->id }}" selected>{{ $pista->nombre }}</option>
-                </select> --}}
             </div>
             <div class="mb-3">
                 <label for="fecha" class="form-label">Fecha</label>

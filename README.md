@@ -3,13 +3,13 @@
 ### Emilio Melero 2º CFSW
 
 #### Base de datos del trabajo
-![Vista de la app](public/images/imagenes_demo/bbdd.png)
+![Base de datos](public/images/imagenes_demo/bbdd.png)
 #### Pagina principal de la aplicacion
-![Vista de la app](public/images/imagenes_demo/main-page.JPG)
+![pagina principal](public/images/imagenes_demo/main-page.JPG)
 #### Pagina principal de sign up
-![Vista de la app](public/images/imagenes_demo/sign-up.JPG)
+![sign up](public/images/imagenes_demo/sign-up.JPG)
 #### Pagina principal de log in
-![Vista de la app](public/images/imagenes_demo/log-in.JPG)
+![log in](public/images/imagenes_demo/log-in.JPG)
 #### Pagina principal identificado
 ![Vista de la app](public/images/imagenes_demo/main-page-user.JPG)
 #### Pagina de hacerte socio (NO es necesario ser socio pero tienes la posibilidad de hacerlo)

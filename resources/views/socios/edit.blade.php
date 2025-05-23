@@ -8,7 +8,7 @@
  
             <div class="col-12">
                 <label for="foto" class="form-label">Foto de Perfil:</label>
-                <input type="text" id="foto" name="foto" class="form-control" value="{{$socio->foto}}">
+                <input type="file" id="foto" name="foto" class="form-control" value="{{$socio->foto}}">
             </div>
             
     

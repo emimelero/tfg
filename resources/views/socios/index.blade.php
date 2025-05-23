@@ -23,15 +23,16 @@
                         <td>{{ $socio->nombre }}</td>
                         <td>{{ $socio->apellido }}</td>
                         <td>{{ $socio->correo_electronico }}</td>
-                        <td>{{ $socio->user->usuario ?? 'Usuario eliminado' }}</td> {{-- o $socio->user->usuario --}}
+                        <td>{{ $socio->user->usuario ?? 'Usuario eliminado' }}</td>
                         <td>
-                            <a href="{{ route('socio.edit', $socio->id)}}" class="btn btn-warning btn-sm my-2">
-                                <img class="foto-boton" src="{{asset('images/edit.png')}}" alt="">
+                            <a href="{{ route('socios.edit', $socio->id)}}" class="btn btn-warning btn-sm my-2">
+                                <img class="foto-boton" src="{{asset('images/edit.png')}}" alt="Editar">
                             </a>
+
                             <form action="{{ route('socio.destroy', $socio->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar esta reserva?')"><img class="foto-boton" src="{{ asset('images/delete.png')}}" ></button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar este socio?')"><img class="foto-boton" src="{{ asset('images/delete.png')}}" ></button>
                             </form>
                         </td>
                     </tr>

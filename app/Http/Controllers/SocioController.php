@@ -54,21 +54,27 @@ class SocioController extends Controller
         return view('socios.show', ['socio' => $socio]);
     }
 
-    public function edit()
+    public function edit($id)
     {
-        $socio = auth()->user()->socio;
-
-        if (!$socio) {
-            return redirect()->route('socio.create')->with('error', 'No eres socio aún.');
-        }
-
+        $socio = Socio::findOrFail($id);
         return view('socios.edit', compact('socio'));
     }
 
+    // public function editAdmin($id)
+    // {
+    //     $socio = Socio::findOrFail($id);
+
+    //     if (!$socio) {
+    //         return redirect()->route('socio.create')->with('error', 'No eres socio aún.');
+    //     }
+
+    //     return view('socios.edit', compact('socio'));
+    // }
+
     public function update(Request $request)
     {
-        $socio = auth()->user()->socio;
-
+         $socio = auth()->user()->socio;
+        // $socio = Socio::findOrFail($id);
         if (!$socio) {
             return redirect()->route('socio.create')->with('error', 'No eres socio aún.');
         }
@@ -92,10 +98,6 @@ class SocioController extends Controller
     public function destroy($id)
     {
         $socio = Socio::findOrFail($id);
-
-        //  if (auth()->user()->cannot('delete', $socio)) {
-        //      abort(403);
-        //  }
 
         $socio->delete();
 

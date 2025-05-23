@@ -3,9 +3,9 @@
     <div class="container mt-5">
         @include('partials.nav', ['socio' => auth()->user()->socio])
         <div class="card">
-            <div class="card-header color text-white">
+            <div class="card-header color text-black">
                 <h1>Mi Perfil de socio</h1>
-                <a href="{{ route('socio.edit', $socio->id)}}" class="btn btn-success btn-sm my-2">
+                <a href="{{ route('socios.edit', $socio->id)}}" class="btn btn-success btn-sm my-2">
                     <i class="bi bi-plus-circle">Editar perfil</i> 
                 </a>
             </div>
