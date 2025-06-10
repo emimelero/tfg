@@ -6,11 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\SocioController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::resource('sportifysolutions', PistaController::class);
+Route::resource('pistas', PistaController::class);
 Route::middleware(['auth'])->group(function () {
     Route::get('/reservas/crear/{pista}', [ReservaController::class, 'create'])->name('reserva.create');
     Route::post('/reservas', [ReservaController::class, 'store'])->name('reserva.store');
@@ -23,9 +19,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/socio/crear', [SocioController::class, 'create'])->name('socio.create');
     Route::get('/socio', [SocioController::class, 'show'])->name('socio.show');
     Route::post('/socio', [SocioController::class, 'store'])->name('socio.store');
-    Route::get('/socio/editar', [SocioController::class, 'edit'])->name('socios.edit');
     Route::get('/socios/{id}/edit', [SocioController::class, 'edit'])->name('socios.edit');
-    Route::put('/socio', [SocioController::class, 'update'])->name('socio.update');
+    Route::put('/socio/{id}', [SocioController::class, 'update'])->name('socio.update');
     Route::delete('/socios/{id}', [SocioController::class, 'destroy'])->name('socio.destroy');
 });
 Route::get('login', [LoginController::class, 'loginForm'])->name('login');
@@ -33,3 +28,7 @@ Route::post('login', [LoginController::class, 'login']);
 Route::get('logout',[LoginController::class,'logout'])->name('logout');
 Route::get('signup',[LoginController::class,'signup'])->name('signup');
 Route::post('newsignup',[LoginController::class,'newsignup'])->name('newsignup');
+
+Route::view('/politica-cookies', 'legal.politica-cookies')->name('cookies');
+Route::view('/aviso-legal', 'legal.aviso-legal')->name('aviso');
+Route::view('/sobre-nosotros', 'legal.sobre')->name('sobre');

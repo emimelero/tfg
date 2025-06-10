@@ -2,7 +2,7 @@
 @section('content')
     <div class="container mt-5">
         <h1>Editar Perfil de socio</h1>
-        <form action="{{ route('socio.update') }}" method="POST" class="row g-3">
+        <form action="{{ route('socio.update', $socio->id) }}" method="POST" enctype="multipart/form-data" class="row g-3">
             @csrf
             @method('PUT')
  

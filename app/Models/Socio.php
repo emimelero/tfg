@@ -14,6 +14,7 @@ class Socio extends Model
         'nombre',
         'apellido',
         'correo_electronico',
+        'foto',
     ];
 
     public function user()

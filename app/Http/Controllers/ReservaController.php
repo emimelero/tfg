@@ -10,14 +10,14 @@ use Carbon\Carbon;
 class ReservaController extends Controller
 {
     public function index()
-{
-    $reservas = Reserva::with(['pista', 'usuario'])
-        ->orderBy('fecha', 'desc')
-        ->orderBy('hora', 'desc')
-        ->get();
+    {
+        $reservas = Reserva::with(['pista', 'usuario'])
+            ->orderBy('fecha', 'desc')
+            ->orderBy('hora', 'desc')
+            ->get();
 
-    return view('reserva.indexall', compact('reservas'));
-}
+        return view('reserva.indexall', compact('reservas'));
+    }
     public function create($pistaId)
     {
         $pista = Pista::findOrFail($pistaId);
@@ -63,7 +63,7 @@ class ReservaController extends Controller
             'usuario_id' => auth()->id(),
         ]);
 
-        return redirect()->route('sportifysolutions.index')->with('success', 'Reserva realizada con éxito.');
+        return redirect()->route('pistas.index')->with('success', 'Reserva realizada con éxito.');
     }
 
     public function destroy($id)
@@ -73,7 +73,7 @@ class ReservaController extends Controller
 
         $reserva->delete();
 
-        return redirect()->route('reserva.show')->with('success', 'Reserva eliminada correctamente.');
+        return redirect()->back();
     }
     public function misReservas()
     {

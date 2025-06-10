@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <ul class="list-group">
-                    <li class="list-group-item"><strong>Foto de Perfil:</strong><img class="foto-perfil" src="{{ $socio->foto}}" alt=""></li>
+                    <li class="list-group-item"><strong>Foto de Perfil:</strong><img class="foto-perfil" src="{{ asset('storage/public/fotos_perfil/' . $socio->foto) }}" alt="Foto de perfil de {{$socio->nombre}}"></li>          
                     <li class="list-group-item"><strong>Nombre:</strong> {{ $socio->nombre }}</li>
                     <li class="list-group-item"><strong>Apellido:</strong> {{ $socio->apellido }}</li>
                     <li class="list-group-item"><strong>Correo electrónico:</strong> {{ $socio->correo_electronico }}</li>

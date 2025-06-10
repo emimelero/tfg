@@ -14,7 +14,7 @@ class LoginController extends Controller
 
     public function logout(){
         Auth::logout();
-        return redirect()->route('sportifysolutions.index');
+        return redirect()->route('pistas.index');
     }
 
     public function newsignup(Request $request){
@@ -25,7 +25,7 @@ class LoginController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('sportifysolutions.index');
+        return redirect()->route('pistas.index');
     }
 
     public function signup(){
@@ -34,7 +34,7 @@ class LoginController extends Controller
     public function login(Request $request){
         $credenciales = $request->only('usuario', 'password');
         if (Auth::attempt($credenciales)){
-            return redirect()->intended(route('sportifysolutions.index'));
+            return redirect()->intended(route('pistas.index'));
         }else{
             $error = 'Usuario incorrecto';
             return view('auth.login', compact('error'));

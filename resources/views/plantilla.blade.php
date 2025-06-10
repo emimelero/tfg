@@ -15,7 +15,7 @@
         <div class="container mx-auto flex justify-between items-center px-4">
             <div class="d-flex align-items-center gap-2">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" style="height: 80px;">
-                <a class="text-xl font-bold" href="{{ route('sportifysolutions.index') }}">Sportify Solutions</a>
+                <a class="text-xl font-bold" href="{{ route('pistas.index') }}">Sportify Solutions</a>
             </div>
             <ul class="flex items-center">
                 @if(auth()->check())
@@ -45,8 +45,8 @@
 
     <footer class="color bg-gradient-800 text-black text-center py-4 mt-6 footer-main">
         <p class="mb-0">Sportify Solutions</p>
-        <a href="#">Sobre Nosotros</a> |
-        <a href="#">Aviso Legal</a> |
-        <a href="#">Politica de cookies</a> 
+        <a href="{{ route('sobre') }}">Sobre Nosotros</a> |
+        <a href="{{ route('aviso') }}">Aviso Legal</a> |
+        <a href="{{ route('cookies') }}">Politica de cookies</a> 
     </footer>
 

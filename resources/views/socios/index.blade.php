@@ -1,6 +1,6 @@
 @extends('plantilla')
-
 @section('content')
+@if(auth()->user() && auth()->user()->usuario == 'admin')
 <div class="container">
     <h2>Listado general de socios</h2>
 
@@ -41,4 +41,8 @@
         </table>
     @endif
 </div>
+@else
+    <p>No puedes estar aqui si no eres el administrador</p>
+    <a class="text-xl font-bold" href="{{ route('pistas.index') }}">Volver a la pagina inicial</a>
+@endif
 @endsection

@@ -24,7 +24,7 @@
             @endif
             @if (auth()->user() && auth()->user()->usuario == 'admin')
                 <br>
-                <a href="{{ route('sportifysolutions.create') }}" class="btn btn-success btn-sm my-2 text-black">
+                <a href="{{ route('pistas.create') }}" class="btn btn-success btn-sm my-2 text-black">
                     <i class="bi bi-plus-circle"><img class="foto-boton" src="{{asset('images/add.png')}}" alt="">Añadir pista</i> 
                 </a>
             @endif
@@ -36,7 +36,7 @@
                 @foreach($pistas as $pista)
                     <div class="col">
                         <div class="card h-100 shadow-sm">
-                            <img src="{{ $pista->imagen }}" class="card-img-top" alt="Imagen de {{ $pista->nombre }}" style="height: 200px; object-fit: cover;">
+                            <img src="{{ asset('storage/public/imagenes_pistas/' . $pista->imagen) }}" class="card-img-top" alt="Imagen de {{ $pista->nombre }}" style="height: 200px; object-fit: cover;">
                             <div class="card-body cajas">
                                 <h4 class="card-title text-center deportes">{{ $pista->nombre }}</h4>
                                 <div class="d-flex justify-content-between align-items-center position-relative p-3 rounded">
@@ -49,8 +49,8 @@
                                         @endif                        
                                         @if(auth()->user() && auth()->user()->usuario == 'admin')
                                             <div class="position-absolute end-0 me-3 d-flex flex-column gap-1">
-                                                <a href="{{ route('sportifysolutions.edit', $pista->id)}}" class="btn btn-warning btn-sm boton-mini">Editar</a>
-                                                <form action="{{ route('sportifysolutions.destroy', $pista->id) }}" method="POST" style="display:inline;">
+                                                <a href="{{ route('pistas.edit', $pista->id)}}" class="btn btn-warning btn-sm boton-mini">Editar</a>
+                                                <form action="{{ route('pistas.destroy', $pista->id) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm text-black" onclick="return confirm('¿Estás seguro de que quieres eliminar esta pista?')">Eliminar</button>

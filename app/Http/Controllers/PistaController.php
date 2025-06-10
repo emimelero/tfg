@@ -20,32 +20,60 @@ class PistaController extends Controller
         return view('admin.create');
     }
 
-    public function edit(string $id)
+    public function edit($id)
     {
         $pistas = Pista::findOrFail($id);
         return view('admin.edit', compact('pistas'));
     }
-    public function store(Request $request)
+   public function store(Request $request)
     {
-        Pista::create($request->all());
-        return redirect()->route('sportifysolutions.index');
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'imagen' => 'nullable|image|max:2048', // si se permite subir imagen
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            $archivo = $request->file('imagen');
+            $nombrePista = str_replace(' ', '_', $request->nombre);
+            $nombreImagen = time(). '_' .'pista_de_' . $nombrePista . '.' . $archivo->getClientOriginalExtension();
+            $archivo->storeAs('public/imagenes_pistas', $nombreImagen);
+        }
+
+        Pista::create([
+            'nombre' => $request->nombre,
+            'imagen' => $nombreImagen,
+        ]);
+
+        return redirect()->route('pistas.index')->with('success', 'Pista creada con éxito.');
     }
-    public function update(Request $request, string $id)
+   public function update(Request $request, string $id)
     {
         $pista = Pista::findOrFail($id);
 
-        $pista->nombre = $request['nombre'];
-        $pista->imagen = $request['imagen'];
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'imagen' => 'nullable|image|max:2048',
+        ]);
+
+        $pista->nombre = $request->nombre;
+
+        if ($request->hasFile('imagen')) {
+            $archivo = $request->file('imagen');
+            $nombrePista = str_replace(' ', '_', $request->nombre);
+            $nombreImagen = time(). '_' .'pista_de_' . $nombrePista . '.' . $archivo->getClientOriginalExtension();
+            $archivo->storeAs('public/imagenes_pistas', $nombreImagen);
+            $pista->imagen = $nombreImagen;
+        }
 
         $pista->save();
 
-        return redirect()->route('sportifysolutions.index')->with('success', 'Pista actualizado con éxito.');
+        return redirect()->route('pistas.index')->with('success', 'Pista actualizada con éxito.');
     }
 
      public function destroy(string $id)
     {
         $pista = Pista::findOrFail($id);
         $pista->delete();
-        return redirect()->route('sportifysolutions.index')->with('success', 'Pista eliminado con éxito.');
+        return redirect()->route('pistas.index')->with('success', 'Pista eliminado con éxito.');
     }
 }

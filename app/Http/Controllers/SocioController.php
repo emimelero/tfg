@@ -38,6 +38,7 @@ class SocioController extends Controller
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'correo_electronico' => $request->email,
+            'foto' => "default.webp",
         ]);
 
         return redirect()->back()->with('success', '¡Te has hecho socio correctamente!');
@@ -54,45 +55,44 @@ class SocioController extends Controller
         return view('socios.show', ['socio' => $socio]);
     }
 
+    
+            
     public function edit($id)
     {
         $socio = Socio::findOrFail($id);
         return view('socios.edit', compact('socio'));
     }
 
-    // public function editAdmin($id)
-    // {
-    //     $socio = Socio::findOrFail($id);
-
-    //     if (!$socio) {
-    //         return redirect()->route('socio.create')->with('error', 'No eres socio aún.');
-    //     }
-
-    //     return view('socios.edit', compact('socio'));
-    // }
-
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-         $socio = auth()->user()->socio;
-        // $socio = Socio::findOrFail($id);
-        if (!$socio) {
-            return redirect()->route('socio.create')->with('error', 'No eres socio aún.');
-        }
+        $socio = Socio::findOrFail($id);
 
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
             'correo_electronico' => 'required|email|max:255',
-            'foto' => 'nullable|string|max:255',
+            'foto' => 'nullable|image|max:2048', // si es una imagen
         ]);
 
         $socio->nombre = $request->nombre;
         $socio->apellido = $request->apellido;
         $socio->correo_electronico = $request->correo_electronico;
-        $socio->foto = $request->foto;
-        $socio->save();
 
-        return redirect()->route('socio.show')->with('success', 'Datos actualizados correctamente.');
+        // Si hay imagen, guárdala
+        if ($request->hasFile('foto')) {
+            $archivo = $request->file('foto');
+            $nombreArchivo = time().'_'.$archivo->getClientOriginalName();
+            $archivo->storeAs('public/fotos_perfil', $nombreArchivo);
+            $socio->foto = $nombreArchivo;
+        }
+
+        $socio->save();
+        
+        if(auth()->user() && auth()->user()->usuario == 'admin'){
+            return redirect()->route('socio.index')->with('success', 'Socio actualizado correctamente.');
+        }
+
+        return redirect()->route('socio.show')->with('success', 'Socio actualizado correctamente.');
     }
 
     public function destroy($id)
